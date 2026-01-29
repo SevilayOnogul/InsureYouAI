@@ -1,6 +1,8 @@
 ﻿using InsureYouAI.Context;
 using InsureYouAI.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
 
 namespace InsureYouAI.Controllers
 {
@@ -55,5 +57,47 @@ namespace InsureYouAI.Controllers
             _context.SaveChanges();
             return RedirectToAction("AboutList");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAboutWithGoogleGemini()
+        {
+            var apiKey = "API_KEY"; 
+            var model = "gemini-1.5-pro";
+            var url = $"https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={apiKey}";
+
+            var requestBody = new { contents = new[] { new { parts = new[] { new { text = "Sigorta firması için hakkımızda yazısı yaz." } } } } };
+            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            using var httpClient = new HttpClient();
+            var response = await httpClient.PostAsync(url, content);
+            var responseJson = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ViewBag.value = "Hata: API Anahtarı geçersiz veya Google servisine ulaşılamadı. (Status: " + response.StatusCode + ")";
+                return View();
+            }
+
+            using var jsonDoc = JsonDocument.Parse(responseJson);
+            try
+            {
+                var aboutText = jsonDoc.RootElement
+                    .GetProperty("candidates")[0]
+                    .GetProperty("content")
+                    .GetProperty("parts")[0]
+                    .GetProperty("text")
+                    .GetString();
+
+                ViewBag.value = aboutText;
+            }
+            catch (Exception)
+            {
+                ViewBag.value = "Cevap formatı çözümlenemedi. API yanıtı: " + responseJson;
+            }
+
+            return View();
+        }
+
+
     }
 }
