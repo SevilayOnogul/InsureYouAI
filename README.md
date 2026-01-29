@@ -1,56 +1,71 @@
-# 🛡️ InsureYouAI – Yapay Zeka Destekli Sigorta Portalı
+# 🛡️ InsureYouAI – ASP.NET Core 8.0 Yapay Zeka Destekli Sigorta Portalı
 
 **InsureYouAI**, sigortacılık sektörü için geliştirilen,  
-**yapay zeka destekli içerik üretimini ve yönetimini** merkeze alan bir **ASP.NET Core MVC** tabanlı web uygulamasıdır.
+**yapay zeka destekli içerik üretimini ve yönetimini** merkeze alan bir  
+**ASP.NET Core 8.0 MVC** tabanlı web uygulamasıdır.
 
-Proje; başta **OpenAI** olmak üzere farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekilde tasarlanmış,  
-**AI destekli makale üretimi, içerik yönetimi ve admin paneli** odaklı bir altyapı sunmaktadır.
+Proje; başta **OpenAI**, **Google Gemini** ve **Anthropic Claude** olmak üzere  
+farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekilde tasarlanmıştır.
 
-> 📌 Proje şu anda **aktif geliştirme / başlangıç aşamasındadır**.  
-> Mimari yapı, ilerleyen aşamalarda **çoklu yapay zeka sağlayıcılarını** destekleyecek şekilde planlanmıştır.
+> 📌 Proje şu anda **aktif geliştirme aşamasındadır**.  
+> Mimari yapı, **çoklu yapay zeka sağlayıcılarını** destekleyecek şekilde genişletilebilir yapıdadır.
 
 ---
 
 ## 🛠 Kullanılan Teknolojiler
 
-- **Backend:** ASP.NET Core MVC  
+- **Backend:** ASP.NET Core 8 MVC  
+- **Identity:** ASP.NET Core Identity (Kullanıcı Yönetimi & Güvenlik)
 - **ORM:** Entity Framework Core  
 - **Database:** MS SQL Server  
-- **AI Entegrasyonu:** OpenAI API, Google Gemini API  
-- **Frontend:** Bootstrap 5, Razor Views, Bootstrap Icons  
-- **Mimari Yaklaşım:**  
-  Tek katmanlı yapı, **SOLID prensiplerine ve Clean Code** yaklaşımına uygun geliştirme
+- **AI Entegrasyonu:**  
+  - OpenAI API  
+  - Google Gemini API  
+  - Anthropic Claude API  
+- **Frontend:** Bootstrap 5, jQuery, Razor Views, Bootstrap Icons  
 
 ---
 
 ## ✨ Mevcut Özellikler (Şu Ana Kadar)
 
-- ✅ **Makale Yönetimi (CRUD):**  
-  Makale ekleme, listeleme, güncelleme ve silme işlemleri
-- 🤖 **AI Destekli Makale Üretimi:**  
-  Prompt tabanlı otomatik içerik oluşturma (Admin Panel üzerinden)
-- 📂 **Kategori Sistemi:**  
-  Makalelerin kategoriler ile bire-çok ilişkili şekilde yönetilmesi
-- 📊 **Admin Panel:**  
-  Bootstrap tabanlı, responsive ve kullanıcı dostu yönetim paneli
-- 🧭 **Sidebar Navigasyon:**  
-  Düzenli admin menü yapısı ve doğru URL yönlendirmeleri
-- 🧩 **ViewComponent Kullanımı:**  
-  Admin layout bileşenlerinin modüler hale getirilmesi
+- ✅ **Kullanıcı Kayıt Sistemi (Identity):**
+  - `AspNetUsers` tablosu ile entegre kullanıcı kayıt akışı
+  - JavaScript ile şifre göster/gizle
+  - Dinamik form kontrolleri
+
+- ✅ **Çoklu Yapay Zeka Entegrasyonu:**
+  - **OpenAI:** Makale (Article) içerik üretimi
+  - **Google Gemini:** Kurumsal ve statik içerik üretimi (Hakkımızda vb.)
+  - **Anthropic Claude:** Hizmetler (Services) bölümü için yapılandırılmış veri üretimi
+
+- ✅ **Admin Paneli:**
+  - Bootstrap tabanlı responsive tasarım
+  - CRUD operasyonları
+  - Modüler ve genişletilebilir yapı
 
 ---
 
-## 🤖 Yapay Zeka Entegrasyonları
+## 🤖 Yapay Zeka Entegrasyon Detayları
 
-- **OpenAI API**
-  - Makale üretimi için prompt tabanlı içerik oluşturma
-  - Admin panel üzerinden AI destekli yazı üretimi
+### 🔹 OpenAI API
+- Prompt tabanlı makale üretimi
+- Admin panel üzerinden AI destekli içerik oluşturma
 
-- **Google Gemini API**
-  - “Hakkımızda” gibi statik içeriklerin AI ile oluşturulması
-  - Çoklu LLM entegrasyonuna uygun yapı denemeleri
+### 🔹 Google Gemini API
+- Kurumsal ve bilgilendirici metin üretimi
+- Çoklu LLM mimarisine geçiş için deneme altyapısı
 
-> ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded** tutulmamaktadır.
+### 🔹 Anthropic Claude API
+- **ServiceController** üzerinden hizmet içeriklerinin otomatik oluşturulması
+- AI çıktılarının:
+  - `Split`
+  - `Trim`
+  
+  yöntemleri ile işlenerek **liste/tablo yapısına** dönüştürülmesi
+- Prompt çıktıları admin panelinde **manuel düzenlemeye uygun** yapıdadır
+
+> ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded tutulmamaktadır**.  
+> Environment Variable veya `appsettings.json` üzerinden yönetilmesi önerilir.
 
 ---
 
@@ -58,10 +73,11 @@ Proje; başta **OpenAI** olmak üzere farklı **LLM (Large Language Model)** ser
 
 ### 📁 Controllers
 Uygulamanın iş akışı ve endpoint yönetimi:
-- `ArticleController` → Makale CRUD & AI entegrasyonu
+- `ArticleController` → Makale CRUD & OpenAI entegrasyonu
+- `ServiceController` → Anthropic Claude entegrasyonu
 - `CategoryController` → Kategori yönetimi
+- `AboutController` → Kurumsal içerik yönetimi
 - `AdminLayoutController` → Admin panel layout yapısı
-- `About`, `Service`, `Slider`, `Testimonial`, `PricingPlan` vb. içerik controller’ları
 
 ---
 
@@ -69,21 +85,24 @@ Uygulamanın iş akışı ve endpoint yönetimi:
 Veritabanı tablolarını temsil eden sınıflar:
 - `Article`
 - `Category`
+- `Service`
+- `About`
+- `Testimonial`
 - Diğer içerik varlıkları
 
 ---
 
 ### 📁 Context
 - `InsureContext`  
-  EF Core DbContext yapılandırmaları ve DbSet tanımları
+  Entity Framework Core DbContext yapılandırmaları ve DbSet tanımları
 
 ---
 
 ### 📁 Views
 Razor tabanlı kullanıcı arayüzleri:
 - `AdminLayout` → Yönetim paneli ana layout
-- `Article` → Makale listeleme, ekleme ve güncelleme sayfaları
-- `Category`, `About`, `Service`, `Contact` vb. modüller
+- `Article`, `Service`, `Category`, `About`, `Contact` vb. modüller
+- Identity kullanıcı ekranları
 
 ---
 
@@ -98,17 +117,17 @@ Admin panel için modüler bileşenler:
 
 ### 📁 Migrations
 - EF Core migration dosyaları
-- Veritabanı şema yönetimi
+- Veritabanı şema ve versiyon yönetimi
 
 ---
 
 ## 🗺️ Roadmap (Planlanan Geliştirmeler)
 
-- Çoklu AI sağlayıcıları için ortak servis altyapısı
-- Prompt yönetimi ve versiyonlama
-- AI çıktılarını veritabanına kaydetme
-- Yetkilendirme & rol bazlı admin erişimi
-- AI içerik kalite kontrol ve düzenleme ekranları
+- 🔹 Çoklu AI sağlayıcıları için ortak servis katmanı
+- 🔹 Prompt yönetimi ve versiyonlama
+- 🔹 AI çıktılarının veritabanına kaydedilmesi
+- 🔹 Rol bazlı yetkilendirme (Admin / Editor)
+- 🔹 AI içerik kalite kontrol ve düzenleme ekranları
 
 ---
 
