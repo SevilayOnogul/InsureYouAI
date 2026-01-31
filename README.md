@@ -42,6 +42,10 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - Bootstrap tabanlı responsive tasarım
   - CRUD operasyonları
   - Modüler ve genişletilebilir yapı
+    
+- ✅ **Blog Sistemi:**
+  - Partial View (Kısmi Görünüm) ile modüler blog listeleme
+  - Arama (Search) mekanizması için altyapı hazırlanması
 
 ---
 
