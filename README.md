@@ -38,11 +38,15 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - **Google Gemini:** Kurumsal ve statik içerik üretimi (Hakkımızda vb.)
   - **Anthropic Claude:** Hizmetler (Services) bölümü için yapılandırılmış veri üretimi
 
+- ✅ **AI Destekli Görsel Oluşturma:**
+  - **OpenAI DALL·E** ile prompt tabanlı görsel üretimi
+  - Üretilen görsellerin içeriklerde kullanılmasına uygun altyapı
+
 - ✅ **Admin Paneli:**
   - Bootstrap tabanlı responsive tasarım
   - CRUD operasyonları
   - Modüler ve genişletilebilir yapı
-    
+
 - ✅ **Blog Sistemi:**
   - Partial View (Kısmi Görünüm) ile modüler blog listeleme
   - Arama (Search) mekanizması için altyapı hazırlanması
@@ -54,6 +58,14 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
 ### 🔹 OpenAI API
 - Prompt tabanlı makale üretimi
 - Admin panel üzerinden AI destekli içerik oluşturma
+
+### 🎨 OpenAI DALL·E
+- Yapay zeka destekli görsel üretimi
+- Prompt tabanlı resim oluşturma
+- Üretilen görsellerin:
+  - Admin panel üzerinden önizlenmesi
+  - İçeriklerde (makale, hizmet, slider vb.) kullanılabilmesi
+- Çoklu AI sağlayıcı mimarisine uyumlu servis yapısı
 
 ### 🔹 Google Gemini API
 - Kurumsal ve bilgilendirici metin üretimi
@@ -132,6 +144,7 @@ Admin panel için modüler bileşenler:
 - 🔹 AI çıktılarının veritabanına kaydedilmesi
 - 🔹 Rol bazlı yetkilendirme (Admin / Editor)
 - 🔹 AI içerik kalite kontrol ve düzenleme ekranları
+- 🔹 Görsel + metin aynı prompttan üretme altyapısı
 
 ---
 
