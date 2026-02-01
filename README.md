@@ -23,7 +23,7 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - Google Gemini API  
   - Anthropic Claude API  
   - Hugging Face API  
-- **Frontend:** Bootstrap 5, jQuery, Razor Views, Bootstrap Icons  
+- **Frontend:** Razor Views, Bootstrap 5, Bootstrap Icons (minimal jQuery usage)
 
 ---
 
@@ -83,14 +83,28 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
 - Prompt çıktıları admin panelinde **manuel düzenlemeye uygun** yapıdadır
 
 ### 🔹 Hugging Face API
-- **Müşteri Yorumları (Testimonials)** üzerinden yapay zeka destekli analiz
-- Kullanıcı yorumlarının:
-  - Anlam bütünlüğü korunarak işlenmesi
-  - AI tarafından örnek/temsilî yorum metinlerine dönüştürülmesi
-- Sigorta sektörüne uygun, doğal ve gerçekçi müşteri geri bildirimleri üretimi
-- Üretilen yorumların:
-  - Admin panelinde listelenmesi
-  - Manuel düzenlemeye açık şekilde saklanması
+#### 🗣️ Müşteri Yorumları (Testimonials) & Moderasyon
+- Kullanıcı yorumlarının **anlam bütünlüğü korunarak** yapay zeka tarafından işlenmesi  
+
+- **Toxic-BERT Modeli Entegrasyonu:**
+  - Yorumların toksiklik (küfür / hakaret / olumsuz dil) oranının analiz edilmesi  
+  - Uygunsuz içeriklerin otomatik olarak tespit edilmesi ve filtrelenmesi  
+
+- **Dinamik Onay Sistemi:**
+  - AI analiz sonucuna göre yorumların:
+    - **Toksik**
+    - **Onaylandı**
+    olarak sınıflandırılması  
+  - Sonucun veritabanına kaydedilmesi ve admin panelinde yönetilmesi  
+
+#### 🌍 Helsinki-NLP Entegrasyonu
+
+- Kullanıcı yorumlarının (Türkçe) yapay zeka tarafından **otomatik olarak İngilizceye çevrilmesi**  
+- Çeviri sonuçlarının:
+  - Asenkron (async) yöntemlerle işlenmesi  
+  - AI moderasyon katmanına (**Toxic-BERT**) girdi olarak beslenmesi  
+- Çok dilli destek ve **global içerik yönetimi** için altyapı oluşturulması  
+
 
 > ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded tutulmamaktadır**.  
 > Environment Variable veya `appsettings.json` üzerinden yönetilmesi önerilir.
