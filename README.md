@@ -2,9 +2,9 @@
 
 **InsureYouAI**, sigortacılık sektörü için geliştirilen,  
 **yapay zeka destekli içerik üretimini ve yönetimini** merkeze alan bir  
-**ASP.NET Core 8.0 MVC** tabanlı web uygulamasıdır.
+**ASP.NET Core 8 MVC** tabanlı web uygulamasıdır.
 
-Proje; başta **OpenAI**, **Google Gemini** ve **Anthropic Claude** olmak üzere  
+Proje; başta **OpenAI**, **Google Gemini**, **Anthropic Claude** ve **Hugging Face** olmak üzere  
 farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekilde tasarlanmıştır.
 
 > 📌 Proje şu anda **aktif geliştirme aşamasındadır**.  
@@ -22,6 +22,7 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - OpenAI API  
   - Google Gemini API  
   - Anthropic Claude API  
+  - Hugging Face API  
 - **Frontend:** Bootstrap 5, jQuery, Razor Views, Bootstrap Icons  
 
 ---
@@ -37,6 +38,7 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - **OpenAI:** Makale (Article) içerik üretimi
   - **Google Gemini:** Kurumsal ve statik içerik üretimi (Hakkımızda vb.)
   - **Anthropic Claude:** Hizmetler (Services) bölümü için yapılandırılmış veri üretimi
+  - **Hugging Face:** Müşteri yorumları üzerinden duygu ve metin analizi altyapısı
 
 - ✅ **AI Destekli Görsel Oluşturma:**
   - **OpenAI DALL·E** ile prompt tabanlı görsel üretimi
@@ -79,6 +81,16 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   
   yöntemleri ile işlenerek **liste/tablo yapısına** dönüştürülmesi
 - Prompt çıktıları admin panelinde **manuel düzenlemeye uygun** yapıdadır
+
+### 🔹 Hugging Face API
+- **Müşteri Yorumları (Testimonials)** üzerinden yapay zeka destekli analiz
+- Kullanıcı yorumlarının:
+  - Anlam bütünlüğü korunarak işlenmesi
+  - AI tarafından örnek/temsilî yorum metinlerine dönüştürülmesi
+- Sigorta sektörüne uygun, doğal ve gerçekçi müşteri geri bildirimleri üretimi
+- Üretilen yorumların:
+  - Admin panelinde listelenmesi
+  - Manuel düzenlemeye açık şekilde saklanması
 
 > ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded tutulmamaktadır**.  
 > Environment Variable veya `appsettings.json` üzerinden yönetilmesi önerilir.
