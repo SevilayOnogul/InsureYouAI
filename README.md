@@ -125,8 +125,7 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - Manuel değerlendirme ve düzenlemeye açık olması  
 - Kişiselleştirilmiş içerik üretimi ve kullanıcı segmentasyonu için altyapı oluşturulması
 
-> ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded tutulmamaktadır**.  
-> Environment Variable veya `appsettings.json` üzerinden yönetilmesi önerilir.
+⚠️ Güvenlik Notu: Proje şu an geliştirme aşamasındadır. API anahtarları kolay test edilebilmesi amacıyla kod içerisinde yer almaktadır. Projenin yayına alınması (Production) durumunda, bu anahtarların appsettings.json, Environment Variables veya Azure Key Vault gibi güvenli yöntemlerle yönetilmesi kritik önem taşımaktadır.
 
 ---
 
