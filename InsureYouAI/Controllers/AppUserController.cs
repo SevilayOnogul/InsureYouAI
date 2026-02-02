@@ -22,24 +22,24 @@ namespace InsureYouAI.Controllers
 
         public IActionResult UserList()
         {
-            var values=_userManager.Users.ToList();
+            var values = _userManager.Users.ToList();
             return View(values);
         }
 
         public async Task<IActionResult> UserProfileWithAI(string id)
         {
-            var value=await _userManager.FindByIdAsync(id);
+            var value = await _userManager.FindByIdAsync(id);
             ViewBag.name = value.Name;
             ViewBag.surname = value.Surname;
-            ViewBag.imageUrl=value.ImageUrl;
-            ViewBag.description=value.Description;
-            ViewBag.titlevalue=value.Title;
-            ViewBag.city=value.City;
-            ViewBag.education=value.Education;
+            ViewBag.imageUrl = value.ImageUrl;
+            ViewBag.description = value.Description;
+            ViewBag.titlevalue = value.Title;
+            ViewBag.city = value.City;
+            ViewBag.education = value.Education;
 
             //Kullanıcı bilgilerini çekiyorum
-            var user=await _userManager.FindByIdAsync(id);
-            if (user==null)
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
@@ -49,7 +49,7 @@ namespace InsureYouAI.Controllers
                 .Select(y => y.Content)
                 .ToListAsync();
 
-            if(articles.Count==0)
+            if (articles.Count == 0)
             {
                 ViewBag.AIResult = "Bu kullanıcıya ait analiz yapılacak makale bulunamadı!";
                 return View(user);
@@ -63,25 +63,25 @@ namespace InsureYouAI.Controllers
             //Promptun Yazılması
 
             var prompt = $@"
-Siz bir sigorta sektöründe uzman bir içerik analistisin.
-Elinizde, bir sigorta şirketinin çalışanının yazdığı tüm makaleler var.
-Bu makaleler üzerinden çalışanın içerik üretim tarzını analiz et.
+                Siz bir sigorta sektöründe uzman bir içerik analistisin.
+                Elinizde, bir sigorta şirketinin çalışanının yazdığı tüm makaleler var.
+                Bu makaleler üzerinden çalışanın içerik üretim tarzını analiz et.
 
-Analiz Başlıkları:
+                Analiz Başlıkları:
 
-1) Konu çeşitliliği ve odak alanları (sağlık, hayat, kasko, tamamlayıcı, BES vb.)
-2) Hedef kitle tahmini (bireysel/kurumsal, segment, persona)
-3) Dil ve Anlatım Tarzı (tekniklik seviyesi, okunabilirlik, ikna gücü)
-4) Sigorta terimlerini kullanma ve doğruluk düzeyi
-5) Müşteri ihtiyaçlarına ve risk yönetimine odaklanma
-6) Pazarlama/satış vurgusu, CTA netliği
-7) Geliştirilmesi gereken alanlar ve net aksiyon maddeleri
+                1) Konu çeşitliliği ve odak alanları (sağlık, hayat, kasko, tamamlayıcı, BES vb.)
+                2) Hedef kitle tahmini (bireysel/kurumsal, segment, persona)
+                3) Dil ve Anlatım Tarzı (tekniklik seviyesi, okunabilirlik, ikna gücü)
+                4) Sigorta terimlerini kullanma ve doğruluk düzeyi
+                5) Müşteri ihtiyaçlarına ve risk yönetimine odaklanma
+                6) Pazarlama/satış vurgusu, CTA netliği
+                7) Geliştirilmesi gereken alanlar ve net aksiyon maddeleri
 
-Makaleler:
+                Makaleler:
 
-{allArticles}
+                {allArticles}
 
-Lütfen çıktıyı profesyonel rapor formatında, madde madde ve en sonda 5 maddelik aksiyon listesi ile ver.";
+                Lütfen çıktıyı profesyonel rapor formatında, madde madde ve en sonda 5 maddelik aksiyon listesi ile ver.";
 
 
             //OpenAI Chat Completions
@@ -171,21 +171,21 @@ Lütfen çıktıyı profesyonel rapor formatında, madde madde ve en sonda 5 mad
             //Promptun Yazılması
 
             var prompt = $@"
-Sen kullanıcı davranış analizi yapan bir yapay zeka uzmanısın.
-Aşağıdaki yorumlara göre kullanıcı değerlendir.
+                Sen kullanıcı davranış analizi yapan bir yapay zeka uzmanısın.
+                    Aşağıdaki yorumlara göre kullanıcı değerlendir.
 
-Analiz Başlıkları:
+                    Analiz Başlıkları:
 
-1) Genel Duygu Durumu (poizitf/negatif/nötr)
-2) Toksik içerik var mı? (örnekleriyle)
-3) İlgi alanları / konu başlıkları
-4) İletişim tarzı (samimi, resmi, agresif vb.)
-5) Geliştirilmesi gereken iletişim alanları
-6) 5 Maddelik kısa özet
+                    1) Genel Duygu Durumu (poizitf/negatif/nötr)
+                    2) Toksik içerik var mı? (örnekleriyle)
+                    3) İlgi alanları / konu başlıkları
+                    4) İletişim tarzı (samimi, resmi, agresif vb.)
+                    5) Geliştirilmesi gereken iletişim alanları
+                    6) 5 Maddelik kısa özet
 
-Yorumlar:
+                    Yorumlar:
 
-{allComments}";
+                    {allComments}";
 
 
             //OpenAI Chat Completions
