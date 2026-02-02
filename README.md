@@ -78,11 +78,11 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
 - AI çıktılarının:
   - `Split`
   - `Trim`
-  
   yöntemleri ile işlenerek **liste/tablo yapısına** dönüştürülmesi
 - Prompt çıktıları admin panelinde **manuel düzenlemeye uygun** yapıdadır
 
 ### 🔹 Hugging Face API
+
 #### 🗣️ Müşteri Yorumları (Testimonials) & Moderasyon
 - Kullanıcı yorumlarının **anlam bütünlüğü korunarak** yapay zeka tarafından işlenmesi  
 
@@ -98,13 +98,25 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - Sonucun veritabanına kaydedilmesi ve admin panelinde yönetilmesi  
 
 #### 🌍 Helsinki-NLP Entegrasyonu
-
 - Kullanıcı yorumlarının (Türkçe) yapay zeka tarafından **otomatik olarak İngilizceye çevrilmesi**  
 - Çeviri sonuçlarının:
   - Asenkron (async) yöntemlerle işlenmesi  
   - AI moderasyon katmanına (**Toxic-BERT**) girdi olarak beslenmesi  
 - Çok dilli destek ve **global içerik yönetimi** için altyapı oluşturulması  
 
+---
+
+### 🔍 AI Destekli Profil & Davranış Analizi
+- Kullanıcıların **kendi yazdığı makaleler** üzerinden yapay zeka destekli analiz yapılması  
+- Yazı içeriklerine göre kullanıcının:
+  - İlgi alanlarının
+  - Yazım tarzının
+  - Genel profil ve davranış eğilimlerinin
+  AI tarafından çıkarımlanması  
+- AI tarafından üretilen analiz sonuçlarının:
+  - Admin panelinde görüntülenmesi
+  - Manuel değerlendirme ve düzenlemeye açık olması  
+- Kişiselleştirilmiş içerik üretimi ve kullanıcı segmentasyonu için altyapı oluşturulması
 
 > ⚠️ API anahtarları güvenlik nedeniyle projede **hardcoded tutulmamaktadır**.  
 > Environment Variable veya `appsettings.json` üzerinden yönetilmesi önerilir.
@@ -114,17 +126,13 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
 ## 🏗 Proje Yapısı
 
 ### 📁 Controllers
-Uygulamanın iş akışı ve endpoint yönetimi:
 - `ArticleController` → Makale CRUD & OpenAI entegrasyonu
 - `ServiceController` → Anthropic Claude entegrasyonu
 - `CategoryController` → Kategori yönetimi
 - `AboutController` → Kurumsal içerik yönetimi
 - `AdminLayoutController` → Admin panel layout yapısı
 
----
-
 ### 📁 Entities
-Veritabanı tablolarını temsil eden sınıflar:
 - `Article`
 - `Category`
 - `Service`
@@ -132,30 +140,20 @@ Veritabanı tablolarını temsil eden sınıflar:
 - `Testimonial`
 - Diğer içerik varlıkları
 
----
-
 ### 📁 Context
 - `InsureContext`  
-  Entity Framework Core DbContext yapılandırmaları ve DbSet tanımları
-
----
+  Entity Framework Core DbContext yapılandırmaları
 
 ### 📁 Views
-Razor tabanlı kullanıcı arayüzleri:
-- `AdminLayout` → Yönetim paneli ana layout
-- `Article`, `Service`, `Category`, `About`, `Contact` vb. modüller
+- `AdminLayout`
+- `Article`, `Service`, `Category`, `About`, `Contact`
 - Identity kullanıcı ekranları
 
----
-
 ### 📁 ViewComponents
-Admin panel için modüler bileşenler:
 - Navbar  
 - Sidebar  
 - Breadcrumb  
-- Script & Head bileşenleri  
-
----
+- Script & Head  
 
 ### 📁 Migrations
 - EF Core migration dosyaları
@@ -182,3 +180,9 @@ Admin panel için modüler bileşenler:
 2. `appsettings.json` dosyasındaki **Connection String** bilgisini güncelleyin.
 3. Package Manager Console üzerinden `Update-Database` komutunu çalıştırın.
 4. Projeyi çalıştırın: `Ctrl + F5`
+5. **API Yapılandırması:**  
+   `appsettings.json` dosyası içerisindeki **OpenAI**, **Google Gemini** ve  
+   **Hugging Face** API anahtar alanlarını kendi lisans anahtarlarınızla doldurun.
+
+> ℹ️ Güvenlik nedeniyle API anahtarları projede varsayılan olarak boş bırakılmıştır.
+
