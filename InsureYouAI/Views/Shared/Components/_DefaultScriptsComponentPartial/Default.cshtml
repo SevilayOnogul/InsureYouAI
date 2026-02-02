@@ -19,3 +19,18 @@
 <script src="/insureyou/js/jquery.magnific-popup.min.js"></script>
 <script src="/insureyou/js/element-in-view.js"></script>
 <script src="/insureyou/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var message = '@Html.Raw(TempData["SuccessMessage"])';
+        if (message) {
+            Swal.fire({
+                title: 'Başarılı!',
+                text: message,
+                icon: 'success',
+                confirmButtonText: 'Tamam',
+                confirmButtonColor: '#3085d6'
+            });
+        }
+    });
+</script>
