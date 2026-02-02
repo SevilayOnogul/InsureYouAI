@@ -27,7 +27,12 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
 
 ---
 
-## ✨ Mevcut Özellikler (Şu Ana Kadar)
+## ✨ Mevcut Özellikler 
+
+- ✅ **İletişim Paneli & AI Otomatik Yanıt Sistemi:**
+  - Kullanıcı mesajlarının **SQL veritabanına** kaydedilmesi
+  - **Anthropic Claude API** entegrasyonu ile akıllı yanıt üretimi
+  - **MailKit / SMTP** üzerinden kullanıcıya anında e-posta gönderimi
 
 - ✅ **Kullanıcı Kayıt Sistemi (Identity):**
   - `AspNetUsers` tablosu ile entegre kullanıcı kayıt akışı
