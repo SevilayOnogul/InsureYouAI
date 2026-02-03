@@ -53,6 +53,13 @@ farklı **LLM (Large Language Model)** servislerinin entegrasyonuna uygun şekil
   - Bootstrap tabanlı responsive tasarım
   - CRUD operasyonları
   - Modüler ve genişletilebilir yapı
+ 
+
+- ✅ **Dinamik Dashboard & Grafik Yönetimi:**
+  - Veritabanındaki finansal verilerin **LINQ `GroupBy`** ile aylık bazda analiz edilmesi
+  - **ViewComponent** yapısı kullanılarak modüler dashboard bileşenlerinin oluşturulması
+  - **Chart.js / ApexCharts** entegrasyonu ile gelir verilerinin dinamik olarak görselleştirilmesi
+
 
 - ✅ **Blog Sistemi:**
   - Partial View (Kısmi Görünüm) ile modüler blog listeleme
