@@ -17,6 +17,7 @@ namespace InsureYouAI.ViewComponents.DashboardViewComponents
         {
             //Revenue
             var revenueData =_context.Revenues
+              //  .Where(x => x.ProcessDate.Year == 2025) 
                 .GroupBy(r=>r.ProcessDate.Month)
                 .Select(g => new
                 {
@@ -28,6 +29,7 @@ namespace InsureYouAI.ViewComponents.DashboardViewComponents
 
             //Expense
             var expenseData=_context.Expenses
+                //.Where(x => x.ProcessDate.Year == 2025)
                 .GroupBy(e=>e.ProcessDate.Month)
                 .Select(g => new
                 {
