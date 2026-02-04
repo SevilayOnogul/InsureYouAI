@@ -1,23 +1,59 @@
-﻿
-<div class="avatar__wrap text-center mb-45">
+﻿@model AppUser
+
+<style>
+    .avatar__info-social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #f4f4f4;
+        border-radius: 50%;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .avatar__info-social i {
+        font-size: 1.2rem; 
+    }
+
+    .avatar__info-social a:hover {
+        background: #007bff; 
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    .avatar-img img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #eee;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="avatar__wrap text-center mb-45 p-4 shadow-sm rounded-4">
     <div class="avatar-img">
-        <img src="img/blog/comment/avatar.png" alt="">
+        <br />
+        <br />
+        <img src="@Model.ImageUrl" alt="@Model.Name @Model.Surname">
     </div>
     <div class="avatar__info">
-        <h5>Sevilay Önoğul </h5>
-        <div class="avatar__info-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-behance"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
+        <h5 class="mb-2">@Model.Name @Model.Surname</h5>
+        <div class="avatar__info-social mb-3">
+            <a href="https://www.facebook.com/login/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/login" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/accounts/login/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.behance.net/login" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+            <a href="https://www.linkedin.com/login" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
     </div>
     <div class="avatar__wrap-content">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequa aute irure dolor.
+        <p class="text-muted">
+            @Model.Description
         </p>
     </div>
 </div>

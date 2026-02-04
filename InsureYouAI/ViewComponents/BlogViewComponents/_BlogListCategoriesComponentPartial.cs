@@ -1,4 +1,5 @@
 ﻿using InsureYouAI.Context;
+using InsureYouAI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsureYouAI.ViewComponents.BlogViewComponents
@@ -14,8 +15,15 @@ namespace InsureYouAI.ViewComponents.BlogViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var values=_context.Categories.ToList();
-            return View(values);
+            // var values=_context.Categories.ToList();
+            var categories = _context.Categories
+                 .Select(x => new CategoryArticleCountViewModel
+                 {
+                     CategoryId = x.CategoryId,
+                     CategoryName = x.CategoryName,
+                     ArticleCount = x.Articles.Count,
+                 }).ToList();
+            return View(categories);
         }
     }
 }

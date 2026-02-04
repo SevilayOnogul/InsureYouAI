@@ -1,15 +1,48 @@
 ﻿@model Article
+
 <div class="details__content pb-30">
-    <h2>
-        @Model.Title
-    </h2>
-    <div class="meta-info">
-        <ul>
-            <li><i class="fa fa-person"></i> Yazar: @* @Model.AppUser.Name @Model.AppUser.Surname *@ </li>
-            <li><i class="fal fa-comments"></i> @* @ViewBag.CommentCount *@ 0 Yorum</li>
-            <li><i class="fal fa-car"></i> Kategori:@*  @Model.Category.CategoryName *@</li>
-            <li><i class="fal fa-calendar-alt"></i>25 Ocak 2026 @* @Model.CreatedDate.ToString("dd-MMM-yyyy") *@</li>
+    <h2 class="mb-4">@Model.Title</h2>
+
+    <div class="meta-info mb-4">
+        <style>
+            /* İkonları ve metinleri biraz daha belirginleştirelim */
+            .meta-info i {
+                font-size: 1.2rem; /* İkon boyutunu özel olarak büyütür */
+                vertical-align: middle;
+            }
+
+            .meta-info span {
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: #555;
+            }
+
+            .list-inline-item {
+                margin-right: 20px !important; /* Aralarındaki boşluğu açar */
+            }
+        </style>
+
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <i class="fal fa-user-circle text-primary"></i>
+                <span class="ml-1">@Model.AppUser.Name @Model.AppUser.Surname</span>
+            </li>
+            <li class="list-inline-item">
+                <i class="fal fa-comments-alt text-primary"></i>
+                <span class="ml-1">@ViewBag.CommentCount Yorum</span>
+            </li>
+            <li class="list-inline-item">
+                <i class="fal fa-bookmark text-primary"></i>
+                <span class="ml-1">@Model.Category.CategoryName</span>
+            </li>
+            <li class="list-inline-item">
+                <i class="fal fa-calendar-alt text-primary"></i>
+                <span class="ml-1">@Model.CreatedDate.ToString("dd MMMM yyyy")</span>
+            </li>
         </ul>
     </div>
-    <p>@Model.Content</p>
+    <hr>
+    <div class="blog-text mt-4">
+        @Html.Raw(Model.Content)
+    </div>
 </div>
