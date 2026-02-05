@@ -1,4 +1,4 @@
-﻿namespace InsureYouAI.Services
+﻿namespace InsureYouAI.Models
 {
     public class PolicyTypeCountViewModel
     {
