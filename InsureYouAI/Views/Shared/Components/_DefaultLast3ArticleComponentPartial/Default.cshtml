@@ -28,14 +28,14 @@
                             <div class="b-meta">
                                 <div class="meta-info">
                                     <ul>
-                                        <li><i class="fal fa-user"></i> @item.AppUser.Name @item.AppUser.Surname</li>
+                                        <li><i class="fal fa-user"></i> @(item.AppUser != null ? item.AppUser.Name + " " + item.AppUser.Surname : "Yazar Belirtilmemiş")</li>
                                         <li><i class="fal fa-calendar-alt"></i> @item.CreatedDate.ToString("dd-MMM-yyyy")</li>
 
                                     </ul>
                                 </div>
                             </div>
                             <h4><a href="blog-details.html">@item.Title</a></h4>
-                            <p>@item.Content.Substring(0, 120)...</p>
+                            <p>@(item.Content != null && item.Content.Length > 120 ? item.Content.Substring(0, 120) + "..." : item.Content)</p>
                         </div>
                     </div>
                 </div>

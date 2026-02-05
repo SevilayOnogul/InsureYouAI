@@ -17,6 +17,8 @@ namespace InsureYouAI.Controllers
 
         public IActionResult AboutItemList()
         {
+            ViewBag.ControllerName = "Hakkımızda Ögeleri";
+            ViewBag.PageName = "Mevcut Hakkımızda Yazısı";
             var values = _context.AboutItems.ToList();
             return View(values);
         }
@@ -24,6 +26,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult CreateAboutItem()
         {
+            ViewBag.ControllerName = "Hakkımızda Ögeleri";
+            ViewBag.PageName = "Yeni Hakkımızda Öge Yazısı";
             return View();
         }
 
@@ -38,6 +42,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateAboutItem(int id)
         {
+            ViewBag.ControllerName = "Hakkımızda Ögeleri";
+            ViewBag.PageName = " Hakkımızda Öge Güncelleme Sayfası";
             var value = _context.AboutItems.Find(id);
             return View(value);
         }
@@ -62,8 +68,8 @@ namespace InsureYouAI.Controllers
         public async Task<IActionResult> CreateAboutItemWithGoogleGemini()
         {
             var apiKey = "API_KEY"; 
-            var model = "gemini-1.5-pro";
-            var url = $"https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={apiKey}";
+            var model = "gemini-2.5-flash";
+            var url = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
 
             var requestBody = new { contents = new[] { new { parts = new[] { new { text = "Sigorta firması için 'Hakkımızda alanları' yazısı yaz.Yaklaşık 60 karakterlik yazı uzunluğunda olsun." } } } } };
             var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");

@@ -17,18 +17,24 @@ namespace InsureYouAI.Controllers
 
         public IActionResult AboutList()
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Mevcut Hakkımızda Yazısı";
             var values=_context.Abouts.ToList();
             return View(values);
         }
 
         [HttpGet]
         public IActionResult CreateAbout()
-        {
+        { 
+            
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Yeni Hakkımızda Yazısı Girişi(Tema Bütünlüğünü Korumak İçin 1 Adet Hakkımızda Yazısı Giriniz";
             return View();
         }
         [HttpPost]
         public IActionResult CreateAbout(About about)
         {
+           
             _context.Abouts.Add(about);
             _context.SaveChanges();
             return RedirectToAction("AboutList");
@@ -37,6 +43,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateAbout(int id)
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = " Hakkımızda Yazı Güncelleme Sayfası";
             var value=_context.Abouts.Find(id);
             return View(value);
 

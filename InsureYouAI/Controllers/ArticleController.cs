@@ -1,6 +1,8 @@
 ﻿using InsureYouAI.Context;
 using InsureYouAI.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 
 namespace InsureYouAI.Controllers
@@ -16,13 +18,32 @@ namespace InsureYouAI.Controllers
 
         public IActionResult ArticleList()
         {
-            var values = _context.Articles.ToList();
+            ViewBag.ControllerName = "Makaleler";
+            ViewBag.PageName = "Makale Listesi";
+            var values = _context.Articles.Include(x=>x.AppUser).ToList();
             return View(values);
         }
 
         [HttpGet]
         public IActionResult CreateArticle()
         {
+            ViewBag.ControllerName = "Makaleler";
+            ViewBag.PageName = "Yeni Makale Oluştur";
+            var categories=_context.Categories
+                        .Select(x=>new SelectListItem
+                        {
+                            Text=x.CategoryName,
+                            Value=x.CategoryId.ToString()
+                        }).ToList();
+            ViewBag.Categories = categories;
+
+            var authors = _context.Users
+                         .Select(x => new SelectListItem
+                         {
+                             Text = x.Name +" "+ x.Surname,
+                             Value = x.Id
+                         }).ToList();
+            ViewBag.Authors = authors;
             return View();
         }
 
@@ -38,6 +59,23 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateArticle(int id)
         {
+            ViewBag.ControllerName = "Makaleler";
+            ViewBag.PageName = " Makale Güncelleme Sayfası";
+            var categories = _context.Categories
+                        .Select(x => new SelectListItem
+                        {
+                            Text = x.CategoryName,
+                            Value = x.CategoryId.ToString()
+                        }).ToList();
+            ViewBag.Categories = categories;
+
+            var authors = _context.Users
+                         .Select(x => new SelectListItem
+                         {
+                             Text = x.Name + " " + x.Surname,
+                             Value = x.Id
+                         }).ToList();
+            ViewBag.Authors = authors;
             var value = _context.Articles.Find(id);
             return View(value);
         }
@@ -63,6 +101,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult CreateArticleWithOpenAI()
         {
+            ViewBag.ControllerName = "Makaleler";
+            ViewBag.PageName = "Yapay Zeka Makale Oluşturucu";
             return View();
         }
 

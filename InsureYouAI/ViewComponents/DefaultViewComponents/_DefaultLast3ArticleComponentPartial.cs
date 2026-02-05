@@ -1,4 +1,5 @@
 ﻿using InsureYouAI.Context;
+using InsureYouAI.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,17 @@ namespace InsureYouAI.ViewComponents.DefaultViewComponents
         {
             _context = context;
         }
-
         public IViewComponentResult Invoke()
         {
-            var values=_context.Articles.OrderByDescending(x=>x.ArticleId).Include(z=>z.AppUser).Include(y=>y.Category).Take(3).ToList();
-            return View(values);
+            var values = _context.Articles
+                .Include(z => z.AppUser)
+                .Include(y => y.Category)
+                .OrderByDescending(x => x.ArticleId)
+                .Take(3)
+                .ToList();
+
+            return View(values ?? new List<Article>()); // Liste null ise boş liste gönder
         }
+
     }
 }
