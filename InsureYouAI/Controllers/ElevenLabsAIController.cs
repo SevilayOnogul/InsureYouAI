@@ -30,7 +30,7 @@ namespace InsureYouAI.Controllers
                 return View();
             }
 
-            var apiKey = "sk_53524e2ea963dfbe1a9293f393f70cdb3948935705047e3e";
+            var apiKey = "API_KEY";
             var voiceId = "EXAVITQu4vr4xnSDxMaL";  // Rachel
 
             var url = $"https://api.elevenlabs.io/v1/text-to-speech/{voiceId}/stream";
@@ -92,7 +92,7 @@ namespace InsureYouAI.Controllers
                 return View();
             }
 
-            var apiKey = "sk_53524e2ea963dfbe1a9293f393f70cdb3948935705047e3e";
+            var apiKey = "API_KEY";
             var voiceId = "EXAVITQu4vr4xnSDxMaL";  // Rachel
 
             var url = $"https://api.elevenlabs.io/v1/text-to-speech/{voiceId}/stream";
@@ -162,7 +162,7 @@ namespace InsureYouAI.Controllers
 
 
             // 2) ELEVENLABS AYARLARI
-            string apiKey = "sk_53524e2ea963dfbe1a9293f393f70cdb3948935705047e3e";
+            string apiKey = "API_KEY";
             string voiceId = "EXAVITQu4vr4xnSDxMaL"; // Rachel (güzel bir ses)
             string url = $"https://api.elevenlabs.io/v1/text-to-speech/{voiceId}/stream";
 
