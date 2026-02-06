@@ -8,10 +8,10 @@ namespace InsureYouAI.Controllers
     public class MessageController : Controller
     {
         private readonly InsureContext _context;
-        private readonly AIService _aiService;
+        private readonly IAIService _aiService;
 
 
-        public MessageController(InsureContext context, AIService aiService)
+        public MessageController(InsureContext context, IAIService aiService)
         {
             _context = context;
             _aiService = aiService;

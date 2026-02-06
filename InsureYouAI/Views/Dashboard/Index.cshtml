@@ -6,16 +6,12 @@
 
 @await Component.InvokeAsync("_DashboardWidgetsComponentPartial")
 
-
-
     <div class="row">
 
     @await Component.InvokeAsync("_DashboardMainChartComponentPartial")
-    @await Component.InvokeAsync("_DashboardSecondChartComponentPartial")
+    @await Component.InvokeAsync("_DashboardSecondChartComponentPartial")        
 
-        
-
-    </div><!--end row-->
+    </div>
 @await Component.InvokeAsync("_DashboardSubWidgetsComponentPartial")
 @* @await Component.InvokeAsync("_DashboardRadialChartComponentPartial")
  *@
@@ -29,19 +25,13 @@
 
         
 
-    </div><!--end row-->
-@await Component.InvokeAsync("_DashboardSubChartsComponentPartial")
-
-  
-
+    </div>
+@* @await Component.InvokeAsync("_DashboardSubChartsComponentPartial")
+ *@
 
     <div class="row">
     @await Component.InvokeAsync("_DashboardCommentListComponentPartial")
     @await Component.InvokeAsync("_DashboardAppUserQuickViewTableComponentPartial")
-
-        
-        
-
     </div>
 
 

@@ -6,10 +6,16 @@ namespace InsureYouAI.Context
 {
     public class InsureContext:IdentityDbContext<AppUser>
     {
+        public InsureContext(DbContextOptions<InsureContext> options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=ONOGUL;initial catalog=InsureDb; integrated security=true; TrustServerCertificate=True");
-
+            // Eğer Test projesinden options (InMemory) gönderilmişse, SqlServer'ı yapılandırma
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=ONOGUL;initial catalog=InsureDb; integrated security=true; TrustServerCertificate=True");
+            }
         }
 
         public DbSet<About> Abouts { get; set; }

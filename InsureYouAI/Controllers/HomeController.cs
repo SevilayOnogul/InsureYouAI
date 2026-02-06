@@ -1,5 +1,6 @@
 using InsureYouAI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Diagnostics;
 
 namespace InsureYouAI.Controllers
@@ -15,8 +16,12 @@ namespace InsureYouAI.Controllers
 
         public IActionResult Index()
         {
+            Log.Information("Home Index sayfasý ziyaret edildi");
+            //throw new Exception("Test exception for Serilog");
+
             return View();
         }
+
 
         public IActionResult Privacy()
         {
@@ -30,3 +35,6 @@ namespace InsureYouAI.Controllers
         }
     }
 }
+
+
+

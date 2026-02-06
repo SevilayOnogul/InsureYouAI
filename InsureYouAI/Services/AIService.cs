@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace InsureYouAI.Services
 {
-    public class AIService
+    public class AIService:IAIService
     {
         private readonly string _apiKey = "AIzaSyDcn0956cBVWSgN3gky4C3GWoxu-jpvTVo";
         private readonly string _model = "gemini-2.5-flash";

@@ -3,6 +3,7 @@ using InsureYouAI.Entities;
 using InsureYouAI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Serilog;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -34,12 +35,31 @@ namespace InsureYouAI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePricingPlan(PricingPlan pricingPlan)
-        {
-            _context.PricingPlans.Add(pricingPlan);
-            _context.SaveChanges();
-            return RedirectToAction("PricingPlanList");
-        }
+public IActionResult CreatePricingPlan(PricingPlan pricingPlan)
+{
+    try
+    {
+        var userName = User.Identity?.Name ?? "Anonymous";
+
+        _context.PricingPlans.Add(pricingPlan);
+        _context.SaveChanges();
+
+        Log.Information(
+            "PricingPlan oluşturuldu. Id: {Id}, PlanAdi: {PlanAdi}, IslemYapan: {User}",
+            pricingPlan.PricingPlanId,
+            pricingPlan.Title,
+            userName
+        );
+
+        return RedirectToAction("PricingPlanList");
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "PricingPlan oluşturulurken hata oluştu");
+        throw;
+    }
+}
+
 
         [HttpGet]
         public IActionResult UpdatePricingPlan(int id)
@@ -53,34 +73,121 @@ namespace InsureYouAI.Controllers
         [HttpPost]
         public IActionResult UpdatePricingPlan(PricingPlan pricingPlan)
         {
-            _context.PricingPlans.Update(pricingPlan);
-            _context.SaveChanges();
-            return RedirectToAction("PricingPlanList");
+            try
+            {
+                var userName = User.Identity?.Name ?? "Anonymous";
+
+                _context.PricingPlans.Update(pricingPlan);
+                _context.SaveChanges();
+
+                Log.Information(
+                    "PricingPlan güncellendi. Id: {Id}, PlanAdi: {PlanAdi}, IslemYapan: {User}",
+                    pricingPlan.PricingPlanId,
+                    pricingPlan.Title,
+                    userName
+                );
+
+                return RedirectToAction("PricingPlanList");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(
+                    ex,
+                    "PricingPlan güncellenirken hata oluştu. Id: {Id}",
+                    pricingPlan.PricingPlanId
+                );
+                throw;
+            }
         }
+
 
         public IActionResult DeletePricingPlan(int id)
         {
-            var value = _context.PricingPlans.Find(id);
-            _context.PricingPlans.Remove(value);
-            _context.SaveChanges();
-            return RedirectToAction("PricingPlanList");
+            try
+            {
+                var pricingPlan = _context.PricingPlans.Find(id);
+
+                if (pricingPlan == null)
+                {
+                    Log.Warning("Silinmek istenen PricingPlan bulunamadı. Id: {Id}", id);
+                    return RedirectToAction("PricingPlanList");
+                }
+
+                var userName = User.Identity?.Name ?? "Anonymous";
+
+                _context.PricingPlans.Remove(pricingPlan);
+                _context.SaveChanges();
+
+                Log.Information(
+                    "PricingPlan silindi. Id: {Id}, PlanAdi: {PlanAdi}, IslemYapan: {User}",
+                    pricingPlan.PricingPlanId,
+                    pricingPlan.Title,
+                    userName
+                );
+
+                return RedirectToAction("PricingPlanList");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(
+                    ex,
+                    "PricingPlan silinirken hata oluştu. Id: {Id}",
+                    id
+                );
+
+                throw;
+            }
         }
+
 
         public IActionResult ChangeStatus(int id)
         {
-            var value = _context.PricingPlans.Find(id);
-            if (value.IsFeature == true)
-            {
-                value.IsFeature = false;
-            }
-            else
-            {
-                value.IsFeature = true;
-            }
-            _context.SaveChanges();
-            return RedirectToAction("PricingPlanList");
+            var userName = User.Identity?.Name ?? "Anonymous";
 
+            try
+            {
+                var value = _context.PricingPlans.Find(id);
+
+                if (value == null)
+                {
+                    Log.Warning(
+                        "PricingPlan bulunamadı. Id: {Id}, IslemYapan: {User}",
+                        id,
+                        userName
+                    );
+                    return RedirectToAction("PricingPlanList");
+                }
+
+                bool oldStatus = value.IsFeature;
+                value.IsFeature = !value.IsFeature;
+
+                _context.SaveChanges();
+
+                Log.Information(
+                    "PricingPlan durumu değiştirildi. Id: {Id}, EskiDurum: {OldStatus}, YeniDurum: {NewStatus}, IslemYapan: {User}",
+                    id,
+                    oldStatus ? "Aktif" : "Pasif",
+                    value.IsFeature ? "Aktif" : "Pasif",
+                    userName
+                );
+
+                return RedirectToAction("PricingPlanList");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(
+                    ex,
+                    "PricingPlan durum değişikliği sırasında hata oluştu. Id: {Id}, IslemYapan: {User}",
+                    id,
+                    userName
+                );
+
+                throw; 
+            }
         }
+
+
+        
 
 
         [HttpGet]

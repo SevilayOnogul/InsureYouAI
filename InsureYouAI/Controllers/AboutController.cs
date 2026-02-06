@@ -34,7 +34,7 @@ namespace InsureYouAI.Controllers
         [HttpPost]
         public IActionResult CreateAbout(About about)
         {
-           
+
             _context.Abouts.Add(about);
             _context.SaveChanges();
             return RedirectToAction("AboutList");
