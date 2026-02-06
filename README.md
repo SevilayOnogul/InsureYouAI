@@ -1,4 +1,4 @@
-# 🛡️ InsureYouAI – ASP.NET Core 8.0 Yapay Zeka Destekli Sigorta Portalı
+# 🛡️ InsureYouAI – ASP.NET Core 8 Yapay Zeka Destekli Sigorta Portalı
 
 **InsureYouAI**, sigortacılık sektörü için geliştirilen,  
 **yapay zeka destekli içerik üretimini ve yönetimini** merkeze alan bir  
@@ -8,8 +8,8 @@ Proje; başta **OpenAI**, **Google Gemini**, **Anthropic Claude**, **Hugging Fac
 **Tavily AI** ve **ElevenLabs** olmak üzere farklı **LLM ve AI servislerinin**  
 entegrasyonuna uygun şekilde tasarlanmıştır.
 
-> 📌 Proje geliştirme süreci tamamlanmış olup, mevcut haliyle **uçtan uca çalışan bir AI destekli sigorta portalıdır**.  
-> Mimari yapı, **çoklu yapay zeka sağlayıcılarını** destekleyecek şekilde genişletilebilir yapıdadır.
+> 📌 Proje geliştirme süreci tamamlanmış olup, mevcut haliyle  
+> **uçtan uca çalışan bir AI destekli sigorta portalıdır**.
 
 ---
 
@@ -19,6 +19,8 @@ entegrasyonuna uygun şekilde tasarlanmıştır.
 - **Identity:** ASP.NET Core Identity  
 - **ORM:** Entity Framework Core  
 - **Database:** MS SQL Server  
+- **Logging:** Serilog  
+- **Testing:** xUnit, Moq, EF Core InMemory  
 - **AI & ML Entegrasyonları:**  
   - OpenAI API  
   - Google Gemini API  
@@ -33,118 +35,141 @@ entegrasyonuna uygun şekilde tasarlanmıştır.
 
 ## ✨ Mevcut Özellikler 
 
-- ✅ **Dinamik Dashboard & Grafik Yönetimi:**
-  - Finansal verilerin **LINQ `GroupBy`** ile aylık bazda analizi
-  - **ViewComponent** tabanlı modüler dashboard yapısı
-  - **Chart.js / ApexCharts** ile dinamik grafikler
-
-- ✅ **ML.NET Time Series Forecasting (SSA):**
-  - Sigorta poliçe satış verilerinin zaman serisi analizi
-  - **ML.NET** ve **Microsoft.ML.TimeSeries** kullanılarak satış tahmini
-  - SSA (Singular Spectrum Analysis) algoritması ile:
-    - Tahmin edilen satış değerleri
-    - Alt / üst güven aralıkları
-  - Dashboard ve raporlama sistemleri için öngörü altyapısı
-
-- ✅ **İletişim Paneli & AI Otomatik Yanıt Sistemi:**
-  - Kullanıcı mesajlarının **SQL veritabanına** kaydedilmesi
-  - **Anthropic Claude API** entegrasyonu ile akıllı yanıt üretimi
-  - **MailKit / SMTP** üzerinden kullanıcıya anında e-posta gönderimi
-
-- ✅ **Kullanıcı Kayıt Sistemi (Identity):**
-  - `AspNetUsers` tablosu ile entegre kullanıcı kayıt akışı
-  - JavaScript ile şifre göster / gizle
-  - Dinamik form doğrulamaları
-
-- ✅ **Çoklu Yapay Zeka Entegrasyonu:**
-  - **OpenAI:** Makale (Article) içerik üretimi
-  - **Google Gemini:** Kurumsal ve statik içerik üretimi
-  - **Anthropic Claude:** Hizmet (Services) içerikleri
-  - **Hugging Face:** Duygu analizi ve moderasyon altyapısı
-
-- ✅ **AI Destekli Görsel Oluşturma:**
-  - **OpenAI DALL·E** ile prompt tabanlı görsel üretimi
-  - Üretilen görsellerin içeriklerde kullanılmasına uygun altyapı
-
-- ✅ **Admin Paneli:**
-  - Bootstrap tabanlı responsive tasarım
-  - CRUD operasyonları
-  - Modüler ve genişletilebilir yapı
-
-- ✅ **Blog Sistemi:**
-  - Partial View (Kısmi Görünüm) ile modüler blog listeleme
-  - Arama (Search) altyapısı
-  - Blog detay sayfası ve sosyal paylaşım linkleri
+- ✅ **Dinamik Dashboard & Grafik Yönetimi**
+- ✅ **ML.NET Time Series Forecasting (SSA)**
+- ✅ **AI Destekli Mesaj Yönetimi & Otomatik Yanıt**
+- ✅ **Çoklu Yapay Zeka Entegrasyonu**
+- ✅ **AI Destekli Görsel Üretimi**
+- ✅ **Admin Paneli & CRUD Operasyonları**
+- ✅ **Blog & Yorum Yönetimi**
+- ✅ **Pricing Plan Aktif / Pasif Yönetimi**
 
 ---
 
-## 🤖 Yapay Zeka Entegrasyon Detayları
+## 🧪 Unit Test Altyapısı
 
-### 💬 Real-Time AI Chat (SignalR & Streaming)
-- SignalR tabanlı gerçek zamanlı AI sohbet altyapısı
-- OpenAI token-by-token streaming
-- Sohbet geçmişi (context) yönetimi
-- Asenkron ve bellek dostu veri akışı
+Projede **xUnit** tabanlı unit test yapısı kurulmuştur.
 
----
+### Kullanılan Test Yaklaşımı
+- **EF Core InMemory Database** ile izole test ortamı
+- **Moq** ile AI servislerinin mocklanması
+- Controller bazlı test senaryoları:
+  - Create
+  - Update
+  - Delete
+  - AI etiketleme doğrulamaları
 
-### 🔹 Anthropic Claude API
+Örnek test edilen alanlar:
+- Mesaj oluşturma (AI kategori & öncelik)
+- Mesaj güncelleme
+- Mesaj silme işlemleri
 
-#### 📄 PDF Analizleri
-- Kullanıcı tarafından yüklenen PDF dosyalarının:
-  - Metin içeriklerinin çıkarılması
-  - Yapay zeka ile analiz edilmesi
-- Sigorta dokümanları üzerinden:
-  - Özetleme
-  - İçerik yorumlama
-  - Bilgiye dayalı yanıt üretimi
-
----
-
-### 🔍 Tavily AI Entegrasyonu
-- Yapay zekaya **gerçek zamanlı web arama** yeteneği kazandırılması
-- AI yanıtlarının:
-  - Güncel
-  - Kaynağa dayalı
-  - Daha doğru bağlamda üretilmesi
-- Sigorta sektörüne özel güncel bilgi çekme altyapısı
+Bu yapı sayesinde:
+- Veritabanına bağımlı olmayan
+- Hızlı ve güvenilir testler
+elde edilmiştir.
 
 ---
 
-### 🔊 ElevenLabs – Metin Seslendirme & Sesli Asistan
-- AI tarafından üretilen metinlerin **doğal insan sesiyle** seslendirilmesi
-- Kullanıcıya:
-  - Sesli bilgilendirme
-  - Sesli asistan deneyimi
-- Erişilebilirlik ve kullanıcı deneyimini artıran yapı
+## 📝 Loglama (Serilog)
+
+Projede **Serilog** ile merkezi loglama altyapısı kurulmuştur.
+
+### Loglanan İşlemler
+- HTTP Request / Response logları
+- Sayfa ziyaretleri
+- CRUD işlemleri
+- Pricing Plan **Aktif / Pasif** durum değişiklikleri
+- Hata (Exception) logları
+
+### Log Özellikleri
+- Günlük bazlı **rolling file** loglama
+- Ortamdan bağımsız yapı
+- İleride Seq / Elasticsearch entegrasyonuna uygun
+
+### Log Dosya Yapısı
+Loglar uygulama çalıştığı süre boyunca otomatik olarak üretilir ve
+günlük bazlı dosyalanır.
+
+```text
+Logs/
+ └── log-YYYYMMDD.txt
+```
+ℹ️ Log dosyaları güvenlik ve boyut yönetimi nedeniyle
+GitHub reposuna dahil edilmemiştir.
 
 ---
 
-### 🔹 Hugging Face API
 
-- **Toxic-BERT** ile kullanıcı yorumlarının moderasyonu
-- Yorumların:
-  - Toksik
-  - Onaylandı
-  olarak sınıflandırılması
-- **Helsinki-NLP** ile otomatik çeviri (TR → EN)
+## 🤖 Yapay Zeka Entegrasyonları (Özet)
 
----
-
-### 🔍 AI Destekli Profil & Davranış Analizi
-- Kullanıcının yazdığı makaleler üzerinden:
-  - İlgi alanı
-  - Yazım tarzı
-  - Davranış profili çıkarımı
-- AI analiz sonuçlarının admin panelinde görüntülenmesi
-- Manuel değerlendirme ve düzenlemeye açık yapı
+- **OpenAI:** İçerik ve makale üretimi
+- **Google Gemini:** Statik ve kurumsal içerikler
+- **Anthropic Claude:** PDF analiz & mesaj yanıtları
+- **Hugging Face:** Duygu analizi & moderasyon
+- **Tavily AI:** Gerçek zamanlı web arama
+- **ElevenLabs:** Metin seslendirme & sesli asistan
+- **ML.NET:** Satış tahminleme (Time Series – SSA)
 
 ---
 
-⚠️ **Güvenlik Notu:**  
-Production ortamında API anahtarlarının  
-`appsettings.json`, **Environment Variables** veya **Azure Key Vault** üzerinden  
-yönetilmesi önerilmektedir.
+## 📸 Uygulama Görselleri
+
+<details>
+<summary>🏠 Anasayfa</summary>
+
+![Anasayfa](Screenshots/anasayfa.png)
+
+</details>
+
+<details>
+<summary>📊 Dashboard</summary>
+
+![Dashboard](Screenshots/dashboard.png)
+
+</details>
+
+<details>
+<summary>💬 Chat AI</summary>
+
+![Chat AI](Screenshots/chatAI.png)
+
+</details>
+
+<details>
+<summary>📩 Mesaj Listesi</summary>
+
+![Mesaj Listesi](Screenshots/mesajListesi.png)
+
+</details>
+
+<details>
+<summary>🧠 Sesli AI Asistan</summary>
+
+![Sesli AI](Screenshots/sesliAIAsistan.png)
+
+</details>
+
+<details>
+<summary>📄 Yorum Detay & AI Analiz</summary>
+
+![Yorum Detay](Screenshots/yorumDetay.png)
+
+</details>
+
+<details>
+<summary>📦 Pricing Plan (Aktif / Pasif Yönetimi)</summary>
+
+![Pricing Plan](Screenshots/pricingPlan.png)
+
+</details>
+
+<details>
+<summary>🧪 Unit Test Ekranı</summary>
+
+![Tests](Screenshots/tests.png)
+
+</details>
 
 ---
 
